@@ -1,0 +1,32 @@
+{
+  "name": "ridgemont-ai-academy",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "turbo dev",
+    "build": "turbo build",
+    "lint": "turbo lint",
+    "type-check": "turbo type-check",
+    "test": "turbo test",
+    "db:generate": "pnpm --filter @ridgemont/db generate",
+    "db:migrate": "pnpm --filter @ridgemont/db migrate:dev",
+    "db:push": "pnpm --filter @ridgemont/db push",
+    "db:seed": "pnpm --filter @ridgemont/db seed",
+    "db:studio": "pnpm --filter @ridgemont/db studio",
+    "clean": "turbo clean && rimraf node_modules"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "rimraf": "^5.0.5",
+    "turbo": "^2.1.0",
+    "typescript": "^5.5.0"
+  },
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=9.0.0"
+  },
+  "packageManager": "pnpm@9.12.0"
+}

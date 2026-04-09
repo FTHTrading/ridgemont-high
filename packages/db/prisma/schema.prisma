@@ -1,0 +1,617 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ──────────────────────────────────────────
+// Users & Auth
+// ──────────────────────────────────────────
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  passwordHash  String?
+  name          String
+  role          UserRole  @default(STUDENT)
+  avatarUrl     String?
+  emailVerified DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  profile       UserProfile?
+  sessions      Session[]
+  accounts      Account[]
+  enrollments   Enrollment[]
+  submissions   Submission[]
+  labSessions   LabSession[]
+  agentSessions AgentSession[]
+  auditLogs     AuditLog[]
+  projects      Project[]
+  parentLinks   GuardianLink[] @relation("Guardian")
+  childLinks    GuardianLink[] @relation("Child")
+  cohortMemberships CohortMember[]
+  savedNotes    SavedNote[]
+
+  @@map("users")
+}
+
+enum UserRole {
+  STUDENT
+  GUARDIAN
+  INSTRUCTOR
+  CONTENT_EDITOR
+  ADMIN
+  SUPER_ADMIN
+}
+
+model UserProfile {
+  id                 String       @id @default(cuid())
+  userId             String       @unique
+  displayName        String
+  bio                String?
+  learnerLevel       LearnerLevel @default(BEGINNER)
+  preferredPersonaId String?
+  timezone           String?
+  onboardingComplete Boolean      @default(false)
+  streak             Int          @default(0)
+  totalXp            Int          @default(0)
+  lastActiveAt       DateTime?
+
+  user              User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  preferredPersona  Persona?      @relation(fields: [preferredPersonaId], references: [id])
+
+  @@map("user_profiles")
+}
+
+enum LearnerLevel {
+  BEGINNER
+  INTERMEDIATE
+  ADVANCED
+}
+
+model GuardianLink {
+  id         String   @id @default(cuid())
+  guardianId String
+  childId    String
+  approved   Boolean  @default(false)
+  createdAt  DateTime @default(now())
+
+  guardian User @relation("Guardian", fields: [guardianId], references: [id], onDelete: Cascade)
+  child    User @relation("Child", fields: [childId], references: [id], onDelete: Cascade)
+
+  @@unique([guardianId, childId])
+  @@map("guardian_links")
+}
+
+// NextAuth models
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@map("accounts")
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+  @@map("verification_tokens")
+}
+
+// ──────────────────────────────────────────
+// Courses & Curriculum
+// ──────────────────────────────────────────
+
+model LearningTrack {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  title       String
+  description String   @db.Text
+  color       String
+  icon        String
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  courses Course[]
+
+  @@map("learning_tracks")
+}
+
+model Course {
+  id             String       @id @default(cuid())
+  slug           String       @unique
+  title          String
+  description    String       @db.Text
+  trackId        String
+  level          LearnerLevel @default(BEGINNER)
+  thumbnailUrl   String?
+  published      Boolean      @default(false)
+  estimatedHours Float        @default(0)
+  order          Int          @default(0)
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+
+  track       LearningTrack @relation(fields: [trackId], references: [id])
+  lessons     Lesson[]
+  enrollments Enrollment[]
+
+  @@map("courses")
+}
+
+model Lesson {
+  id               String   @id @default(cuid())
+  courseId          String
+  slug             String
+  title            String
+  order            Int      @default(0)
+  contentMdx       String   @db.Text
+  estimatedMinutes Int      @default(15)
+  personaId        String?
+  published        Boolean  @default(false)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  course  Course  @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  persona Persona? @relation(fields: [personaId], references: [id])
+  blocks  LessonBlock[]
+  quizzes Quiz[]
+
+  @@unique([courseId, slug])
+  @@map("lessons")
+}
+
+model LessonBlock {
+  id       String @id @default(cuid())
+  lessonId String
+  type     String // text, code, quiz, timeline, comparison, source_card, then_vs_now, persona_commentary, lab, project_assignment
+  data     Json
+  order    Int    @default(0)
+
+  lesson Lesson @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+
+  @@map("lesson_blocks")
+}
+
+model Quiz {
+  id       String @id @default(cuid())
+  lessonId String
+  title    String
+
+  lesson    Lesson         @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  questions QuizQuestion[]
+
+  @@map("quizzes")
+}
+
+model QuizQuestion {
+  id           String @id @default(cuid())
+  quizId       String
+  prompt       String @db.Text
+  type         String // multiple_choice, free_response, code
+  options      Json?  // string[]
+  correctIndex Int?
+  rubric       String? @db.Text
+  order        Int     @default(0)
+
+  quiz Quiz @relation(fields: [quizId], references: [id], onDelete: Cascade)
+
+  @@map("quiz_questions")
+}
+
+// ──────────────────────────────────────────
+// Enrollment & Progress
+// ──────────────────────────────────────────
+
+model Enrollment {
+  id         String           @id @default(cuid())
+  userId     String
+  courseId    String
+  status     EnrollmentStatus @default(ACTIVE)
+  progress   Float            @default(0) // 0-1
+  startedAt  DateTime         @default(now())
+  completedAt DateTime?
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  course Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, courseId])
+  @@map("enrollments")
+}
+
+enum EnrollmentStatus {
+  ACTIVE
+  COMPLETED
+  PAUSED
+  DROPPED
+}
+
+model Submission {
+  id           String   @id @default(cuid())
+  userId       String
+  lessonId     String?
+  quizId       String?
+  projectId    String?
+  labSessionId String?
+  content      Json
+  score        Float?
+  createdAt    DateTime @default(now())
+
+  user     User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  feedback Feedback[]
+
+  @@map("submissions")
+}
+
+model Feedback {
+  id           String   @id @default(cuid())
+  submissionId String
+  personaId    String?
+  scores       Json     // { criterion: score }
+  strengths    Json     // string[]
+  improvements Json     // string[]
+  nextSteps    Json     // string[]
+  createdAt    DateTime @default(now())
+
+  submission Submission @relation(fields: [submissionId], references: [id], onDelete: Cascade)
+  persona    Persona?   @relation(fields: [personaId], references: [id])
+
+  @@map("feedback")
+}
+
+model SavedNote {
+  id        String   @id @default(cuid())
+  userId    String
+  lessonId  String?
+  content   String   @db.Text
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("saved_notes")
+}
+
+// ──────────────────────────────────────────
+// Personas
+// ──────────────────────────────────────────
+
+model Persona {
+  id                 String   @id @default(cuid())
+  archetypeSlug      String   @unique
+  inspiredName       String
+  homageName         String
+  role               String
+  biography          String   @db.Text
+  teachingPhilosophy String   @db.Text
+  communicationStyle String
+  strengths          Json     // string[]
+  subjectOwnership   Json     // string[]
+  toneProfile        String
+  systemPrompt       String   @db.Text
+  allowedTools       Json     // string[]
+  blockedBehaviors   Json     // string[]
+  escalationRules    Json     // string[]
+  outputFormat       String   @default("markdown")
+  avatarInspired     String?
+  avatarHomage       String?
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  lessons       Lesson[]
+  feedback      Feedback[]
+  agentSessions AgentSession[]
+  profiles      UserProfile[]
+
+  @@map("personas")
+}
+
+// ──────────────────────────────────────────
+// Labs
+// ──────────────────────────────────────────
+
+model LabSession {
+  id         String   @id @default(cuid())
+  userId     String
+  labType    String   // prompt, agent, mcp, rag, code, media_analysis, project
+  title      String
+  state      Json     @default("{}")
+  feedback   String?  @db.Text
+  personaId  String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  user    User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  outputs LabOutput[]
+
+  @@map("lab_sessions")
+}
+
+model LabOutput {
+  id        String   @id @default(cuid())
+  sessionId String
+  type      String
+  content   String   @db.Text
+  metadata  Json     @default("{}")
+  version   Int      @default(1)
+  createdAt DateTime @default(now())
+
+  session LabSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+
+  @@map("lab_outputs")
+}
+
+// ──────────────────────────────────────────
+// Agent Sessions
+// ──────────────────────────────────────────
+
+model AgentSession {
+  id        String   @id @default(cuid())
+  userId    String
+  personaId String
+  messages  Json     // Message[]
+  toolCalls Json     @default("[]")
+  context   Json     @default("{}")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  persona Persona @relation(fields: [personaId], references: [id])
+
+  @@map("agent_sessions")
+}
+
+// ──────────────────────────────────────────
+// Projects
+// ──────────────────────────────────────────
+
+model Project {
+  id          String        @id @default(cuid())
+  userId      String
+  title       String
+  description String?       @db.Text
+  status      ProjectStatus @default(DRAFT)
+  data        Json          @default("{}")
+  cohortId    String?
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  cohort    Cohort?    @relation(fields: [cohortId], references: [id])
+  milestones Milestone[]
+
+  @@map("projects")
+}
+
+enum ProjectStatus {
+  DRAFT
+  IN_PROGRESS
+  SUBMITTED
+  REVIEWED
+  COMPLETED
+}
+
+model Milestone {
+  id        String   @id @default(cuid())
+  projectId String
+  title     String
+  completed Boolean  @default(false)
+  order     Int      @default(0)
+  dueDate   DateTime?
+
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@map("milestones")
+}
+
+// ──────────────────────────────────────────
+// Current Events / News
+// ──────────────────────────────────────────
+
+model NewsItem {
+  id                   String   @id @default(cuid())
+  title                String
+  summary              String   @db.Text
+  sourceUrl            String
+  sourceName           String
+  publishedAt          DateTime
+  ingestedAt           DateTime @default(now())
+  topics               Json     // string[]
+  sentiment            String   // positive, neutral, negative
+  educationalRelevance Float    @default(0)
+  relatedCourseIds     Json     @default("[]") // string[]
+  thenVsNow            Json?    // ThenVsNowCard
+
+  @@map("news_items")
+}
+
+// ──────────────────────────────────────────
+// Media
+// ──────────────────────────────────────────
+
+model MediaItem {
+  id                String @id @default(cuid())
+  title             String
+  year              Int
+  type              String // film, tv, music, article, trailer
+  era               String
+  genres            Json   // string[]
+  themes            Json   // string[]
+  rightsStatus      String // licensed, public_domain, metadata_only, deep_link
+  thumbnailUrl      String?
+  streamingLinks    Json?  // Record<string, string>
+  educationalContext String? @db.Text
+  createdAt         DateTime @default(now())
+
+  @@map("media_items")
+}
+
+// ──────────────────────────────────────────
+// RAG / Documents
+// ──────────────────────────────────────────
+
+model Document {
+  id            String   @id @default(cuid())
+  title         String
+  sourceUrl     String?
+  sourceType    String   // upload, web, api, manual
+  knowledgeZone String   // curriculum, current_events, culture_media, lab_docs, student_projects, admin_policy
+  rawContent    String   @db.Text
+  metadata      Json     @default("{}")
+  createdAt     DateTime @default(now())
+
+  chunks DocumentChunk[]
+
+  @@map("documents")
+}
+
+model DocumentChunk {
+  id         String @id @default(cuid())
+  documentId String
+  content    String @db.Text
+  chunkIndex Int
+  metadata   Json   @default("{}") // headings, page, section
+  embedding  Unsupported("vector(1536)")?
+  createdAt  DateTime @default(now())
+
+  document Document @relation(fields: [documentId], references: [id], onDelete: Cascade)
+
+  @@map("document_chunks")
+}
+
+// ──────────────────────────────────────────
+// Source Registry & Rights
+// ──────────────────────────────────────────
+
+model SourceRegistry {
+  id          String   @id @default(cuid())
+  name        String
+  url         String   @unique
+  type        String   // news, documentation, academic, media, community
+  trustLevel  Int      @default(3) // 1-5
+  status      String   @default("approved") // approved, blocked, pending
+  notes       String?  @db.Text
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("source_registry")
+}
+
+model MediaRightsEntry {
+  id          String   @id @default(cuid())
+  mediaItemId String?
+  title       String
+  rightsHolder String?
+  licenseType String   // public_domain, fair_use_metadata, licensed, restricted
+  notes       String?  @db.Text
+  verifiedAt  DateTime?
+  createdAt   DateTime @default(now())
+
+  @@map("media_rights_registry")
+}
+
+// ──────────────────────────────────────────
+// Cohorts / Multi-tenancy
+// ──────────────────────────────────────────
+
+model Cohort {
+  id             String   @id @default(cuid())
+  name           String
+  organizationId String?
+  courseIds       Json     @default("[]")
+  startDate      DateTime?
+  endDate        DateTime?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  members  CohortMember[]
+  projects Project[]
+
+  @@map("cohorts")
+}
+
+model CohortMember {
+  id       String @id @default(cuid())
+  cohortId String
+  userId   String
+  role     String @default("student") // student, instructor
+
+  cohort Cohort @relation(fields: [cohortId], references: [id], onDelete: Cascade)
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([cohortId, userId])
+  @@map("cohort_members")
+}
+
+// ──────────────────────────────────────────
+// Admin & Audit
+// ──────────────────────────────────────────
+
+model AuditLog {
+  id         String   @id @default(cuid())
+  userId     String?
+  action     String
+  resource   String
+  resourceId String?
+  metadata   Json     @default("{}")
+  ipAddress  String?
+  timestamp  DateTime @default(now())
+
+  user User? @relation(fields: [userId], references: [id])
+
+  @@index([userId, timestamp])
+  @@index([resource, action])
+  @@map("audit_logs")
+}
+
+model FeatureFlag {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  enabled   Boolean  @default(false)
+  metadata  Json     @default("{}")
+  updatedAt DateTime @updatedAt
+
+  @@map("feature_flags")
+}
+
+model ModerationLog {
+  id        String   @id @default(cuid())
+  userId    String?
+  eventType String   // content_flagged, prompt_abuse, source_blocked, manual_review
+  content   String   @db.Text
+  action    String   // blocked, warned, approved, escalated
+  metadata  Json     @default("{}")
+  createdAt DateTime @default(now())
+
+  @@map("moderation_logs")
+}
