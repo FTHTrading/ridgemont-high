@@ -1,6 +1,19 @@
 import { BookOpen, Clock, CheckCircle2, Circle, Lock } from "lucide-react";
 import Link from "next/link";
 
+export function generateStaticParams() {
+  return [
+    { trackSlug: "ai-foundations" },
+    { trackSlug: "prompt-engineering" },
+    { trackSlug: "creative-ai" },
+    { trackSlug: "agent-frameworks" },
+    { trackSlug: "ethics-society" },
+    { trackSlug: "rag-search" },
+    { trackSlug: "mcp-tools" },
+    { trackSlug: "ai-business" },
+  ];
+}
+
 /* Mock data — replaced by server component + Prisma in production */
 const trackData = {
   slug: "ai-foundations",

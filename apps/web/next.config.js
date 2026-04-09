@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: "export",
   transpilePackages: [
     "@ridgemont/ui",
     "@ridgemont/config",
@@ -9,14 +10,7 @@ const nextConfig = {
     "@ridgemont/personas",
   ],
   images: {
-    remotePatterns: [
-      { protocol: "https", hostname: "**" },
-    ],
-  },
-  experimental: {
-    serverActions: {
-      bodySizeLimit: "2mb",
-    },
+    unoptimized: true,
   },
 };
 
