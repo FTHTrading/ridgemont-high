@@ -1,3 +1,4 @@
+import { PromoBanner } from "@/components/landing/promo-banner";
 import { HeroSection } from "@/components/landing/hero";
 import { HowItWorks } from "@/components/landing/how-it-works";
 import { StatsSection } from "@/components/landing/stats-section";
@@ -13,6 +14,7 @@ import { SiteFooter } from "@/components/layout/site-footer";
 export default function LandingPage() {
   return (
     <div className="min-h-screen bg-ridgemont-offBlack-900">
+      <PromoBanner />
       <SiteHeader />
       <main>
         <HeroSection />

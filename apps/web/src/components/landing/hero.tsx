@@ -132,7 +132,7 @@ export function HeroSection() {
               </span>
             </h1>
 
-            <p className="mt-16 sm:mt-8 max-w-xl text-lg text-ridgemont-cassetteGray-200 sm:text-xl leading-relaxed">
+            <p className="mt-8 max-w-xl text-lg text-ridgemont-cassetteGray-200 sm:text-xl leading-relaxed">
               Inspired by the era. Built for right now. Learn AI online with
               <span className="text-ridgemont-neonMagenta-400 font-medium"> iconic-style instructors</span>,
               real labs, and daily briefings that make today&apos;s technology
