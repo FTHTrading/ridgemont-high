@@ -8,6 +8,7 @@ const nextConfig = {
     "@ridgemont/db",
     "@ridgemont/types",
     "@ridgemont/personas",
+    "@ridgemont/content",
   ],
   images: {
     unoptimized: true,

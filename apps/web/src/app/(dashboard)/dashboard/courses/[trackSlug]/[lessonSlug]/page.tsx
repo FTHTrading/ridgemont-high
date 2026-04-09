@@ -1,7 +1,8 @@
 import LessonPageClient from "./lesson-client";
+import { getAllLessonParams } from "@ridgemont/content";
 
 export function generateStaticParams() {
-  return [{ trackSlug: "ai-foundations", lessonSlug: "neural-networks" }];
+  return getAllLessonParams();
 }
 
 export default function LessonPage() {

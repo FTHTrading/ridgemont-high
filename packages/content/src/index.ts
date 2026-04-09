@@ -22,7 +22,15 @@ export {
   ETHICS_SOCIETY_TRACK,
 } from "./seeds/ethics-society";
 
-export type { SeedLesson, SeedBlock } from "./seeds/ai-foundations";
+export type { SeedLesson, SeedBlock } from "./seeds/ai-foundations-full";
+
+// Course registry (client-side lesson lookup)
+export {
+  getCourseLesson,
+  getAdjacentLessons,
+  getLessonsForTrack,
+  getAllLessonParams,
+} from "./course-registry";
 
 export {
   allLessonStubs,

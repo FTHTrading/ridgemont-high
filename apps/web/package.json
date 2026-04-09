@@ -17,6 +17,7 @@
     "@ridgemont/db": "workspace:*",
     "@ridgemont/types": "workspace:*",
     "@ridgemont/personas": "workspace:*",
+    "@ridgemont/content": "workspace:*",
     "@tanstack/react-query": "^5.50.0",
     "framer-motion": "^11.0.0",
     "lucide-react": "^0.400.0",
