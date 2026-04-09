@@ -300,10 +300,4 @@ export function getAuditLog(filters?: {
   return result;
 }
 
-// ── Exports ──
-export type {
-  ModerationResult,
-  AuditEntry,
-  RateLimitResult,
-  ModerationPipelineInput,
-};
+// ── Re-exports (all types exported at declaration above) ──

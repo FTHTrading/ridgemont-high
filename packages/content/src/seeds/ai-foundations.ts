@@ -6,7 +6,14 @@
  * renderer system with all 7 block types.
  */
 
-import type { LessonBlock } from "@ridgemont/types";
+export type SeedBlock =
+  | { type: "text"; content: string }
+  | { type: "persona_commentary"; personaId: string; quote: string }
+  | { type: "then_vs_now"; thenEra: string; thenDescription: string; nowDescription: string }
+  | { type: "code"; language: string; code: string; caption: string }
+  | { type: "source_card"; title: string; author: string; publication: string; year: number; url: string; description: string }
+  | { type: "quiz"; question: string; options: string[]; correctIndex: number; explanation: string }
+  | { type: "lab"; labType: string; labTitle: string; labDescription: string };
 
 export interface SeedLesson {
   slug: string;
@@ -15,7 +22,7 @@ export interface SeedLesson {
   order: number;
   estimatedMinutes: number;
   personaId: string;
-  blocks: LessonBlock[];
+  blocks: SeedBlock[];
 }
 
 // ── Lesson 1: What Is Artificial Intelligence? ──

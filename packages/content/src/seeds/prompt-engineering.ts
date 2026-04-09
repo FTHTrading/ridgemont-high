@@ -5,7 +5,6 @@
  * led by Ms. Chen (the prompt engineering mentor).
  */
 
-import type { LessonBlock } from "@ridgemont/types";
 import type { SeedLesson } from "./ai-foundations";
 
 export const lesson01_promptBasics: SeedLesson = {

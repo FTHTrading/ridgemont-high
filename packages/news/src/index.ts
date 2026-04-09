@@ -315,13 +315,4 @@ export async function composeDailyBriefing(
   };
 }
 
-// ── Exports ──
-export type {
-  NewsSource,
-  RawArticle,
-  CuratedItem,
-  ThenVsNowCard,
-  DiscussionPrompt,
-  DailyBriefing,
-  ThenVsNowContext,
-};
+// ── Re-exports (all types exported at declaration above) ──

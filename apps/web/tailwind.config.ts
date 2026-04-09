@@ -1,5 +1,5 @@
 import type { Config } from "tailwindcss";
-import { ridgemontThemeExtension } from "@ridgemont/ui";
+import { ridgemontThemeExtension } from "@ridgemont/ui/theme";
 
 const config: Config = {
   content: [

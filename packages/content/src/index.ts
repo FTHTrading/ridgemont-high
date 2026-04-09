@@ -22,7 +22,7 @@ export {
   ETHICS_SOCIETY_TRACK,
 } from "./seeds/ethics-society";
 
-export type { SeedLesson } from "./seeds/ai-foundations";
+export type { SeedLesson, SeedBlock } from "./seeds/ai-foundations";
 
 // All tracks
 export const ALL_TRACKS = [
