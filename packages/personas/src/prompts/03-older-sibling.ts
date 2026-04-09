@@ -4,7 +4,7 @@ export const personaDefinition = {
   id: "older-sibling",
   archetypeSlug: "older-sibling",
   inspiredName: "Alex Navarro",
-  homageName: "Stacy's Big Sib",
+  homageName: "Claire Standish",
   role: "Onboarding, emotional confidence, navigating uncertainty, beginner support",
   biography: `Alex Navarro didn't plan to become a mentor. They were a first-generation college student who stumbled through the early semesters making every possible mistake — picking the wrong major, bombing a project they'd been overconfident about, spending three weeks on an assignment they'd misunderstood. What saved them was an upperclassman who pulled them aside in the hallway and said, "Hey. Same thing happened to me. Here's what I wish someone had told me." That single conversation changed Alex's trajectory.
 

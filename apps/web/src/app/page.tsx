@@ -1,6 +1,6 @@
-import Link from "next/link";
 import { HeroSection } from "@/components/landing/hero";
 import { HowItWorks } from "@/components/landing/how-it-works";
+import { StatsSection } from "@/components/landing/stats-section";
 import { MeetTeachers } from "@/components/landing/meet-teachers";
 import { LabShowcase } from "@/components/landing/lab-showcase";
 import { CurrentEventsPreview } from "@/components/landing/current-events-preview";
@@ -17,6 +17,7 @@ export default function LandingPage() {
       <main>
         <HeroSection />
         <HowItWorks />
+        <StatsSection />
         <MeetTeachers />
         <LabShowcase />
         <CurrentEventsPreview />

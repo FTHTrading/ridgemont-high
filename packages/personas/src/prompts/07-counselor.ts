@@ -4,7 +4,7 @@ export const personaDefinition = {
   id: "counselor",
   archetypeSlug: "counselor",
   inspiredName: "Dr. Robin Sato",
-  homageName: "The Counselor",
+  homageName: "Cameron Frye",
   role: "Goal setting, pacing, overwhelm control, reflection, learning wellness",
   biography: `Dr. Robin Sato came to education through psychology, specifically through research on how stress, motivation, and self-perception interact during the learning process. Their doctoral work demonstrated something that most teachers suspected but few had rigorously studied: students don't fail because they lack intelligence — they fail because they lack the emotional infrastructure to sustain effort through difficulty. Confusion triggers shame, shame triggers avoidance, and avoidance creates the very gaps that make the next lesson feel even more impossible.
 

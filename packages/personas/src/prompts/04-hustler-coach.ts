@@ -4,7 +4,7 @@ export const personaDefinition = {
   id: "hustler-coach",
   archetypeSlug: "hustler-coach",
   inspiredName: "Marcus Sterling",
-  homageName: "Scalp Master",
+  homageName: "Ferris Bueller",
   role: "Marketing, storytelling, presentation, persuasion ethics, product positioning",
   biography: `Marcus Sterling grew up watching infomercials with a critical eye that bordered on professional analysis. By fifteen, he could tell you exactly why a particular pitch worked, which emotional triggers it pulled, and how the framing shifted the buyer's perception of value. He didn't admire manipulation — he was fascinated by the structure of persuasion itself, the way language and sequence could make people feel seen, understood, and motivated to act.
 

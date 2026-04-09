@@ -12,3 +12,12 @@ export {
   resolveAllPersonas,
   resolvePersonaById,
 } from "./resolver.js";
+
+export type { Instructor } from "./instructors.js";
+export {
+  namedInstructors,
+  bonusInstructors,
+  getInstructorById,
+  getInstructorBySlug,
+  getInstructorByPersonaId,
+} from "./instructors.js";

@@ -24,9 +24,9 @@ const features = [
   },
   {
     icon: Zap,
-    title: "Class Discussion Hooks",
+    title: "Instructor Reactions",
     description:
-      "Every story comes with guided questions, persona reactions, and optional debate prompts.",
+      "Every story includes reactions from your instructors — Spicoli explains it simply, Miyagi finds the principle, Bender questions who benefits.",
   },
 ];
 
@@ -50,8 +50,8 @@ export function CurrentEventsPreview() {
               <span className="gradient-text">Neither Should Your Curriculum.</span>
             </h2>
             <p className="mt-6 text-lg leading-relaxed text-ridgemont-cassetteGray-300">
-              Every school day starts with a fresh briefing — real headlines, reputable sources,
-              reading-level-appropriate summaries, and discussion starters your mentors weave
+              Every day starts with a fresh briefing — real headlines, reputable sources,
+              plain-language summaries, and discussion starters your instructors weave
               directly into lessons.
             </p>
             <p className="mt-4 text-sm text-ridgemont-cassetteGray-400">

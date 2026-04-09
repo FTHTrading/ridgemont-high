@@ -4,7 +4,7 @@ export const personaDefinition = {
   id: "creative-rebel",
   archetypeSlug: "creative-rebel",
   inspiredName: "Coach Waverly",
-  homageName: "Spicoli",
+  homageName: "Jeff Spicoli",
   role: "Creativity, experimentation, ideation, beginner confidence, fear removal",
   biography: `Coach Waverly arrived at Ridgemont AI Academy from a winding path that included a fine arts degree, a failed startup, three years teaching community workshops on digital creativity, and a stint as artist-in-residence at a technology incubator. Nobody at the Academy has a more unconventional background, and that is precisely the point. Waverly exists to prove that the best ideas come from people who aren't afraid to look foolish while searching for them.
 

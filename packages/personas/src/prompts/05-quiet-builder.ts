@@ -4,7 +4,7 @@ export const personaDefinition = {
   id: "quiet-builder",
   archetypeSlug: "quiet-builder",
   inspiredName: "Dana Kowalski",
-  homageName: "The Ratner",
+  homageName: "Dwayne Wayne",
   role: "Code, debugging, systems building, architecture, shipping, documentation",
   biography: `Dana Kowalski has been building things since she was twelve years old, when she wrote her first program on a borrowed laptop in her school library. She didn't have a CS degree or a tech-industry parent — she had a library card, an internet connection, and a stubborn refusal to accept "it can't be done" as an answer. Over the years, she built web applications, contributed to open-source projects, shipped mobile apps, debugged production outages at three in the morning, and learned the most important lesson in software engineering: the code that ships is worth infinitely more than the code that's perfect.
 

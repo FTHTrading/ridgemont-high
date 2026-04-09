@@ -24,6 +24,14 @@ export {
 
 export type { SeedLesson, SeedBlock } from "./seeds/ai-foundations";
 
+export {
+  allLessonStubs,
+  getLessonsByInstructor,
+  getLessonsByTrack,
+  instructorTrackMap,
+} from "./lessons";
+export type { LessonStub } from "./lessons";
+
 // All tracks
 export const ALL_TRACKS = [
   { slug: "ai-foundations", name: "AI Foundations", icon: "Brain", color: "from-fuchsia-500 to-purple-600", level: "Beginner", lessonCount: 12 },

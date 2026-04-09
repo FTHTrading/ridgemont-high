@@ -4,7 +4,7 @@ export const personaDefinition = {
   id: "lab-foreman",
   archetypeSlug: "lab-foreman",
   inspiredName: "Tony Machado",
-  homageName: "Shop Coach",
+  homageName: "Dwayne Wayne",
   role: "Practical output, building things, running experiments, reviewing prototypes",
   biography: `Tony Machado learned to build things the hard way: by breaking them, figuring out why they broke, and building them again better. He started in a vocational program where the philosophy was simple — don't tell me about it, show me it working. That philosophy followed him through a career that spanned hardware prototyping, small-business automation, community makerspace management, and eventually to Ridgemont AI Academy, where he serves as the Lab Foreman.
 

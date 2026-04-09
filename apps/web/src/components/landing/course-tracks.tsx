@@ -2,22 +2,23 @@
 
 import { motion } from "framer-motion";
 import {
-  Cpu,
+  Brain,
   MessageCircle,
   Paintbrush,
   Code2,
-  Shield,
   Scale,
   Building2,
-  Brain,
-  Database,
+  Search,
+  Wrench,
+  Bot,
 } from "lucide-react";
 
 const tracks = [
   {
-    icon: Cpu,
+    icon: Brain,
     name: "AI Foundations",
-    lessons: 12,
+    lessons: 9,
+    instructor: "Mr. Miyagi & Spicoli",
     color: "text-ridgemont-electricBlue-400",
     bg: "bg-ridgemont-electricBlue-500/10",
     ring: "ring-ridgemont-electricBlue-500/20",
@@ -25,63 +26,71 @@ const tracks = [
   {
     icon: MessageCircle,
     name: "Prompt Engineering",
-    lessons: 10,
+    lessons: 2,
+    instructor: "Jeff Spicoli",
     color: "text-ridgemont-neonMagenta-400",
     bg: "bg-ridgemont-neonMagenta-500/10",
     ring: "ring-ridgemont-neonMagenta-500/20",
   },
   {
     icon: Paintbrush,
-    name: "Generative AI & Creativity",
-    lessons: 8,
+    name: "Creative AI",
+    lessons: 11,
+    instructor: "Spicoli, Claire & Lisa",
     color: "text-ridgemont-warmGold-400",
     bg: "bg-ridgemont-warmGold-500/10",
     ring: "ring-ridgemont-warmGold-500/20",
   },
   {
-    icon: Code2,
-    name: "AI-Assisted Coding",
-    lessons: 10,
+    icon: Bot,
+    name: "Agent Frameworks",
+    lessons: 4,
+    instructor: "Dwayne Wayne & Cameron",
     color: "text-ridgemont-arcadeGreen-400",
     bg: "bg-ridgemont-arcadeGreen-500/10",
     ring: "ring-ridgemont-arcadeGreen-500/20",
   },
   {
-    icon: Shield,
-    name: "AI Safety & Alignment",
-    lessons: 6,
-    color: "text-red-400",
-    bg: "bg-red-500/10",
-    ring: "ring-red-500/20",
-  },
-  {
     icon: Scale,
-    name: "AI Ethics & Society",
-    lessons: 8,
+    name: "Ethics & Society",
+    lessons: 7,
+    instructor: "John Bender & Cameron",
     color: "text-ridgemont-vhsPurple-400",
     bg: "bg-ridgemont-vhsPurple-500/10",
     ring: "ring-ridgemont-vhsPurple-500/20",
   },
   {
-    icon: Building2,
-    name: "AI in Industry",
-    lessons: 8,
+    icon: Search,
+    name: "RAG & Search",
+    lessons: 5,
+    instructor: "Brian Johnson",
+    color: "text-indigo-400",
+    bg: "bg-indigo-500/10",
+    ring: "ring-indigo-500/20",
+  },
+  {
+    icon: Wrench,
+    name: "MCP & Tools",
+    lessons: 2,
+    instructor: "Dwayne Wayne",
     color: "text-cyan-400",
     bg: "bg-cyan-500/10",
     ring: "ring-cyan-500/20",
   },
   {
-    icon: Brain,
-    name: "Agents & Autonomy",
+    icon: Building2,
+    name: "AI & Business",
     lessons: 10,
+    instructor: "Ferris Bueller & Zack",
     color: "text-orange-400",
     bg: "bg-orange-500/10",
     ring: "ring-orange-500/20",
   },
   {
-    icon: Database,
-    name: "Data & Retrieval",
-    lessons: 8,
+    icon: Code2,
+    name: "Deep Learning",
+    lessons: 0,
+    instructor: "Coming Soon",
     color: "text-emerald-400",
     bg: "bg-emerald-500/10",
     ring: "ring-emerald-500/20",
@@ -98,8 +107,8 @@ export function CourseTracks() {
             <span className="gradient-text">One Complete Education.</span>
           </h2>
           <p className="mt-4 max-w-2xl mx-auto text-lg text-ridgemont-cassetteGray-300">
-            Structured from introductory to advanced. Each track has its own set of lessons,
-            quizzes, labs, and a culminating project.
+            Structured from introductory to advanced. Each track is led by named
+            instructors with hands-on labs and real projects.
           </p>
         </div>
 
@@ -120,8 +129,11 @@ export function CourseTracks() {
                 <h3 className="font-heading text-sm font-semibold text-white">
                   {track.name}
                 </h3>
-                <p className="mt-1 text-xs text-ridgemont-cassetteGray-400">
-                  {track.lessons} lessons
+                <p className="mt-0.5 text-xs text-ridgemont-cassetteGray-400">
+                  {track.lessons > 0 ? `${track.lessons} lessons` : "Coming soon"}
+                </p>
+                <p className={`mt-1 text-[11px] ${track.color} font-medium`}>
+                  {track.instructor}
                 </p>
               </div>
             </motion.div>

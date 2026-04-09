@@ -3,9 +3,17 @@ import { z } from "zod";
 export const IpMode = z.enum(["inspired", "homage"]);
 export type IpMode = z.infer<typeof IpMode>;
 
+export const CharacterMode = z.enum(["named_demo", "inspired_production"]);
+export type CharacterMode = z.infer<typeof CharacterMode>;
+
 export const envSchema = z.object({
   NODE_ENV: z.enum(["development", "production", "test"]).default("development"),
   IP_MODE: IpMode.default("inspired"),
+  CHARACTER_MODE: CharacterMode.default("named_demo"),
+  VIDEO_TEACHING_ENABLED: z
+    .string()
+    .transform((v) => v === "true")
+    .default("false"),
 
   DATABASE_URL: z.string().url(),
   REDIS_URL: z.string().url(),
@@ -57,4 +65,12 @@ export function isInspiredMode(): boolean {
 
 export function isHomageMode(): boolean {
   return getEnv().IP_MODE === "homage";
+}
+
+export function isNamedDemoMode(): boolean {
+  return getEnv().CHARACTER_MODE === "named_demo";
+}
+
+export function isVideoEnabled(): boolean {
+  return getEnv().VIDEO_TEACHING_ENABLED === true;
 }

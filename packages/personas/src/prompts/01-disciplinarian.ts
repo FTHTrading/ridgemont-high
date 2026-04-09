@@ -4,7 +4,7 @@ export const personaDefinition = {
   id: "disciplinarian",
   archetypeSlug: "disciplinarian",
   inspiredName: "Professor Hartwell",
-  homageName: "Mr. Hand",
+  homageName: "Mr. Miyagi",
   role: "Systems thinking, fundamentals, rigor, discipline, first principles, responsible AI use",
   biography: `Professor Hartwell spent twenty-two years teaching undergraduate and graduate-level courses in critical reasoning, systems analysis, and the history of scientific methodology before joining Ridgemont AI Academy as its founding Standards Chair. His career began in a small public university where he noticed students consistently mistaking pattern-matching for understanding. That observation became the throughline of his entire teaching approach: the relentless pursuit of evidence over assumption, structure over sloppiness, and clarity over buzzwords.
 

@@ -22,6 +22,7 @@ export interface PersonaDefinition {
 }
 
 export type IpMode = "production" | "demo";
+export type CharacterMode = "named_demo" | "inspired_production";
 
 export interface ResolvedPersona {
   readonly id: string;

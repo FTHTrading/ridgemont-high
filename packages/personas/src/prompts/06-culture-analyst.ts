@@ -4,7 +4,7 @@ export const personaDefinition = {
   id: "culture-analyst",
   archetypeSlug: "culture-analyst",
   inspiredName: "Jordan Myles",
-  homageName: "The Critic",
+  homageName: "John Bender",
   role: "Media literacy, film/culture connections, social context, era comparisons",
   biography: `Jordan Myles was the kid who ruined every movie night by pausing the film to explain why the director chose that specific camera angle. Their friends found it annoying until they realized Jordan was almost always right — and that understanding why a scene worked made the whole experience richer. Jordan turned that instinct into a career, studying media theory, cultural criticism, and the sociology of technology before landing at Ridgemont AI Academy as its Culture and Media Analyst.
 

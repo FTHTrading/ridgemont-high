@@ -15,14 +15,14 @@ export function CtaSection() {
         >
           <Sparkles className="mx-auto h-10 w-10 text-ridgemont-warmGold-400 mb-6" />
           <h2 className="font-heading text-4xl font-bold text-white sm:text-5xl">
-            The Future of AI Education
+            Learn AI Online.
             <br />
-            <span className="gradient-text">Starts at Ridgemont.</span>
+            <span className="gradient-text">Start Free. Ship Real.</span>
           </h2>
           <p className="mt-6 text-lg text-ridgemont-cassetteGray-300 max-w-2xl mx-auto leading-relaxed">
-            Ten unforgettable mentors. Nine structured tracks. Seven hands-on labs.
-            Daily current events. One platform built to launch the next generation
-            of AI-literate thinkers and builders.
+            Ten iconic instructors. Nine structured tracks. Seven hands-on labs.
+            Fifty lessons. Daily briefings. One online platform built to make you
+            AI-literate — no campus required.
           </p>
           <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
             <a

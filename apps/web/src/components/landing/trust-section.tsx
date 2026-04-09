@@ -36,7 +36,7 @@ export function TrustSection() {
             <span className="gradient-text">Designed for Safety.</span>
           </h2>
           <p className="mt-4 max-w-2xl mx-auto text-lg text-ridgemont-cassetteGray-300">
-            Ridgemont treats safety and transparency as first-class features — not afterthoughts.
+            An online platform where safety and transparency are first-class features — not afterthoughts.
           </p>
         </div>
 

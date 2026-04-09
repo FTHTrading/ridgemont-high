@@ -16,7 +16,7 @@ export function SiteFooter() {
               </span>
             </div>
             <p className="text-xs text-ridgemont-cassetteGray-300">
-              AI education that feels like the best 80s/90s campus collided with a top-tier AI academy.
+              Online AI education with iconic-style instructors, real labs, and daily briefings.
             </p>
           </div>
 
@@ -33,7 +33,7 @@ export function SiteFooter() {
           <div>
             <h4 className="text-sm font-semibold text-white mb-3">Platform</h4>
             <ul className="space-y-2">
-              <li><Link href="/teachers" className="text-xs text-ridgemont-cassetteGray-300 hover:text-white">Meet the Teachers</Link></li>
+              <li><Link href="/instructors" className="text-xs text-ridgemont-cassetteGray-300 hover:text-white">Meet the Instructors</Link></li>
               <li><Link href="/parents" className="text-xs text-ridgemont-cassetteGray-300 hover:text-white">Parent Portal</Link></li>
               <li><Link href="/schools" className="text-xs text-ridgemont-cassetteGray-300 hover:text-white">For Schools</Link></li>
               <li><Link href="/pricing" className="text-xs text-ridgemont-cassetteGray-300 hover:text-white">Pricing</Link></li>
@@ -53,7 +53,7 @@ export function SiteFooter() {
 
         <div className="mt-8 border-t border-ridgemont-cassetteGray-700 pt-6 text-center">
           <p className="text-xs text-ridgemont-cassetteGray-400">
-            &copy; {new Date().getFullYear()} Ridgemont AI Academy. Education powered by nostalgia and modern AI.
+            &copy; {new Date().getFullYear()} Ridgemont AI Academy. Online AI education powered by iconic style and modern technology.
           </p>
         </div>
       </div>
